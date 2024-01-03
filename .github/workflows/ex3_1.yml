@@ -25,5 +25,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
+          context: ./part3/ex3_1/express-app
           tags: syrvil/ex3_1_app:latest
 
