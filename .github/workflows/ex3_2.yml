@@ -3,7 +3,8 @@ name: Release Flask app
 
 on:
   push:
-    branches: main
+    paths:
+      - 'part3/ex3_2/**'
 
 jobs:
   deploy:
@@ -26,8 +27,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ./part3/ex3_2/express-app
-          file: ./part3/ex3_2/express-app/Dockerfile
+          context: ./part3/ex3_2/
+          file: ./part3/ex3_2/Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ex3-2-app:latest
 
       - 
