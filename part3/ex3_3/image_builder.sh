@@ -25,8 +25,6 @@ echo "CMD node index.js" >> Dockerfile
 # Build Docker image
 docker build -t $dockerhub_repo .
 
-# Login to Docker Hub
-
 # Push image to the Docker Hub
 docker push $dockerhub_repo
 
