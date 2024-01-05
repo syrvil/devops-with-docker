@@ -1,0 +1,29 @@
+FROM node:16
+
+EXPOSE 5000
+
+# Työskentelyhakemisto
+WORKDIR /usr/src/app
+
+# Kopioidaan package.json ja pakcage-lock.json, jotta saadaan riippuvuudet cachetettua
+COPY $FILE_PATH/package*.json ./
+
+# Asennetaan riippuvuudet
+RUN npm install
+
+# Kopioidaan loput tiedostot
+COPY . .
+
+# Tehdään build
+RUN npm run build
+
+# Asennetaan serve
+RUN npm install -g serve
+
+# Luodaan käyttäjä, muutetaan työhekemiston oikeudet ja vaihdetaan käyttäjä
+RUN useradd appuser
+RUN chown appuser .
+USER appuser
+
+# Käynnistetään sovellus appuser-käyttäjällä
+CMD ["serve", "-s", "-l", "5000", "build"]
