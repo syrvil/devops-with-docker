@@ -1,0 +1,22 @@
+FROM node:16
+
+EXPOSE 5000
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build && \
+    npm install -g serve && \
+    useradd -m appuser && \
+    chown appuser . && \
+    npm cache clean --force && \
+    rm -rf /root/.npm /root/.node-gyp /tmp/*
+
+USER appuser
+
+CMD ["serve", "-s", "-l", "5000", "build"]
