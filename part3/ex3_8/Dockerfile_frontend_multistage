@@ -23,4 +23,6 @@ RUN npm install -g serve && \
 
 USER appuser
 
+EXPOSE 5000
+
 CMD ["serve", "-s", "-l", "5000", "build"]
